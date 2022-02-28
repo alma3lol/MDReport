@@ -3,7 +3,7 @@ import { ar } from './ar';
 import { en } from './en';
 
 export {
-	i18n,
-	ar,
-	en,
+  i18n,
+  ar,
+  en,
 }
