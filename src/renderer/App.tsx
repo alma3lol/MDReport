@@ -1,50 +1,59 @@
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { i18n } from '../locales';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { I18nextProvider } from 'react-i18next';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import icon from '../../assets/icon.svg';
 import './App.css';
+import { HomeView } from './views';
+import { MyAppBar } from './components';
 
-const Hello = () => {
-  return (
-    <div>
-      <div className="Hello">
-        <img width="200px" alt="icon" src={icon} />
-      </div>
-      <h1>electron-react-boilerplate</h1>
-      <div className="Hello">
-        <a
-          href="https://electron-react-boilerplate.js.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
-        </a>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
-      </div>
-    </div>
-  );
-};
+export type AppContext = {
+	mode: 'light' | 'dark';
+	setMode: (mode: 'light' | 'dark') => void;
+}
+
+export const appContext = createContext<AppContext>({
+	mode: 'light',
+	setMode: () => {},
+});
+
+export const useAppContext = () => useContext(appContext);
 
 export default function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Hello />} />
-      </Routes>
-    </Router>
-  );
+	const [mode, setMode] = useState<'light' | 'dark'>('light');
+	useEffect(() => {
+		const storedMode = localStorage.getItem('mode');
+		if (storedMode) {
+			setMode(storedMode as 'light' | 'dark');
+		}
+	}, []);
+	const theme = createTheme({
+		palette: {
+			mode,
+			primary: {
+				main: '#3f51b5',
+			},
+			secondary: {
+				main: '#f50057',
+			},
+		},
+	});
+	useEffect(() => {
+		localStorage.setItem('mode', mode);
+	}, [mode]);
+	return (
+		<appContext.Provider value={{ mode, setMode }}>
+			<I18nextProvider i18n={i18n}>
+				<ThemeProvider theme={theme}>
+					<CssBaseline />
+					<Router>
+						<MyAppBar />
+						<Routes>
+							<Route path="/" element={<HomeView />} />
+						</Routes>
+					</Router>
+				</ThemeProvider>
+			</I18nextProvider>
+		</appContext.Provider>
+	);
 }
