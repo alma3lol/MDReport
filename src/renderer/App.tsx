@@ -6,28 +6,35 @@ import { i18n } from '../locales';
 import './App.css';
 import { HomeView } from './views';
 import { MyAppBar } from './components';
+import { RTL } from './rtl';
 
 export type AppContext = {
   mode: 'light' | 'dark';
   setMode: (mode: 'light' | 'dark') => void;
+  language: 'en' | 'ar';
+  setLanguage: (language: 'en' | 'ar') => void;
 };
 
 export const appContext = createContext<AppContext>({
   mode: 'light',
   setMode: () => {},
+  language: 'ar',
+  setLanguage: () => {},
 });
 
 export const useAppContext = () => useContext(appContext);
 
 export default function App() {
   const [mode, setMode] = useState<'light' | 'dark'>('light');
+  const [language, setLanguage] = useState(i18n.language as 'en' | 'ar');
   useEffect(() => {
     const storedMode = localStorage.getItem('mode');
     if (storedMode) {
       setMode(storedMode as 'light' | 'dark');
     }
   }, []);
-  const theme = createTheme({
+  const createThemeCallback = () => createTheme({
+    direction: language === 'en' ? 'ltr' : 'rtl',
     palette: {
       mode,
       primary: {
@@ -38,21 +45,27 @@ export default function App() {
       },
     },
   });
+  const [theme, setTheme] = useState(createThemeCallback());
+  i18n.on('languageChanged', setLanguage);
   useEffect(() => {
     localStorage.setItem('mode', mode);
-  }, [mode]);
+    document.body.style.direction = language === 'ar' ? 'rtl' : 'ltr';
+    setTheme(createThemeCallback());
+  }, [language, mode]);
   return (
-    <appContext.Provider value={{ mode, setMode }}>
+    <appContext.Provider value={{ mode, setMode, language, setLanguage }}>
       <I18nextProvider i18n={i18n}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Router>
-            <MyAppBar />
-            <Routes>
-              <Route path="/" element={<HomeView />} />
-            </Routes>
-          </Router>
-        </ThemeProvider>
+        <RTL>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Router>
+              <MyAppBar />
+              <Routes>
+                <Route path="/" element={<HomeView />} />
+              </Routes>
+            </Router>
+          </ThemeProvider>
+        </RTL>
       </I18nextProvider>
     </appContext.Provider>
   );

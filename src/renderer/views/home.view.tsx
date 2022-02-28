@@ -15,14 +15,13 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 export const HomeView = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   return (
     <Grid
       container
       spacing={2}
       p={2}
-      dir={i18n.language === 'en' ? 'ltr' : 'rtl'}
     >
       <Grid item xs={12} container spacing={2}>
         <Grid item xs={12}>
