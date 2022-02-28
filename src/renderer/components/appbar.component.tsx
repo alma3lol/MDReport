@@ -11,7 +11,7 @@ import {
 	FolderOpen as FolderOpenIcon,
 } from "@mui/icons-material";
 import { FC, useState } from "react";
-import { useAppContext } from "renderer/App";
+import { useAppContext } from "../App";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 
