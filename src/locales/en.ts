@@ -16,4 +16,4 @@ export const en = {
     recent: 'Show recent reports',
     open: 'Open a saved report file',
   },
-}
+};

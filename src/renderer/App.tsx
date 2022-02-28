@@ -1,8 +1,8 @@
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
-import { i18n } from '../locales';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
+import { i18n } from '../locales';
 import './App.css';
 import { HomeView } from './views';
 import { MyAppBar } from './components';
@@ -10,7 +10,7 @@ import { MyAppBar } from './components';
 export type AppContext = {
   mode: 'light' | 'dark';
   setMode: (mode: 'light' | 'dark') => void;
-}
+};
 
 export const appContext = createContext<AppContext>({
   mode: 'light',

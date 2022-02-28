@@ -240,17 +240,17 @@ export default class MenuBuilder {
                   },
                 },
               ]
-                          : [
-                              {
-                                  label: 'Toggle &Full Screen',
-                                  accelerator: 'F11',
-                                  click: () => {
-                                      this.mainWindow.setFullScreen(
-                                          !this.mainWindow.isFullScreen()
-                                      );
-                                  },
-                              },
-                            ],
+            : [
+                {
+                  label: 'Toggle &Full Screen',
+                  accelerator: 'F11',
+                  click: () => {
+                    this.mainWindow.setFullScreen(
+                      !this.mainWindow.isFullScreen()
+                    );
+                  },
+                },
+              ],
       },
       {
         label: 'Help',

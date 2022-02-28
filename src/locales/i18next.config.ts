@@ -34,7 +34,7 @@ i18n
       transSupportBasicHtmlNodes: true,
       transKeepBasicHtmlNodesFor: ['br', 'strong', 'i'],
       useSuspense: false,
-    }
+    },
   });
 
 export default i18n;
