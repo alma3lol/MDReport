@@ -1,7 +1,7 @@
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { I18nextProvider } from 'react-i18next';
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { i18n } from '../locales';
 import './App.css';
 import { HomeView } from './views';
