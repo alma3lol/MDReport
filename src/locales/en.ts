@@ -16,4 +16,8 @@ export const en = {
     recent: 'Show recent reports',
     open: 'Open a saved report file',
   },
+  inputs: {
+    title: 'Title',
+    reportedTo: 'Reported to'
+  }
 };

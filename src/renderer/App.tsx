@@ -4,7 +4,7 @@ import { I18nextProvider } from 'react-i18next';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { i18n } from '../locales';
 import './App.css';
-import { HomeView } from './views';
+import { HomeView, NewView } from './views';
 import { MyAppBar } from './components';
 import { RTL } from './rtl';
 
@@ -62,6 +62,7 @@ export default function App() {
               <MyAppBar />
               <Routes>
                 <Route path="/" element={<HomeView />} />
+                <Route path="/new" element={<NewView />} />
               </Routes>
             </Router>
           </ThemeProvider>

@@ -16,4 +16,8 @@ export const ar = {
     recent: 'عرض التقارير المستخدمة أخيراً',
     open: 'فتح ملف تقرير',
   },
+  inputs: {
+    title: 'عنوان التقرير',
+    reportedTo: 'مرسل إلى'
+  }
 };
